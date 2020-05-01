@@ -42,13 +42,6 @@ class Command:
         return [a if p.annotation is inspect.Parameter.empty else p.annotation(a) for p, a in zip(self.parameters, arguments)]
 
 
-class CommandResult:
-    def __init__(self, command: Command, type: ResultType, message_content: str):
-        self.command = command
-        self.type = type
-        self.message_content = message_content
-
-
 class CommandResultType(enum.Enum):
     Success = 0
     NotACommand = enum.auto()
@@ -56,3 +49,10 @@ class CommandResultType(enum.Enum):
     NotEnoughArguments = enum.auto()
     InvalidArgument = enum.auto()
     CommandError = enum.auto()
+
+
+class CommandResult:
+    def __init__(self, command: Command, type: CommandResultType, message_content: str):
+        self.command = command
+        self.type = type
+        self.message_content = message_content
